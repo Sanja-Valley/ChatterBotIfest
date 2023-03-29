@@ -41,23 +41,18 @@ Criado pela equipe _Sanja Valley_, este projeto visa desenvolver um Chatbot de v
 
 <hr/>
 
-# :dart: Requisitos
-1. Tela incial
-2. Acrescentar produto no carrinho
-3. Eliminar produto no carrinho
-4. Modificar produtos no carrinho
-5. Exibir itens do carrinho
-6. Finalizar compra
-7. Acrescentar dados de pagamento
-8. Gerar Pix
-9. Acrescentar endereço de entrega
-10. “Tela” de login
-11. Visualizar imagem do produto por link
-12. Script de produtos
-13. Script de clientes
-14. Script de compras
-15. Fluxo de conversa
-16. Exibir recomendações de produtos por segmento
-17. Elaborar menu inicial do Chat
-18. Implantação da LGPD no Chat
+# :dart: Storycards
+| ID |	  COMO   | DESEJO                           |	PARA                                                                               | PRIORIDADE |
+| -- | :-------: | -------------------------------- | ---------------------------------------------------------------------------------- | :--------: |
+| 01 | Comprador | Acessar Chat                     | Realizar as pesquisas para minha compra                                            |     1      |
+| 02 | Comprador | Acrescentar produtos no carrinho |	Inserir itens que desejo comprar                                                   |     2      |
+| 03 | Comprador | Exibir itens do carrinho         |	Verificar os itens que selecionei para compra                                      |   	 3      |
+| 04 | Comprador | Deletar produtos do carrinho     |	Cancelar itens que desejo remover da compra	                                       |     4      |
+| 05 | Comprador | Finalizar Compra                 | Fechar os itens do carrinho de produtos e prosseguir para as etapas de finalização |     5      |
+| 06 | Comprador | Acrescentar endereço             | Receber os itens adquiridos no endereço desejado                                   |     6      |
+| 07 | Comprador | Gerar QR Code de Pagamento       | Realizar o pagamento da compra                                                     |     7      |
+| 08 | Comprador | Receber recomendações de Produtos|	Verificar itens recomendados para minha compra de acordo com o Segmento            |     8      |
+| 09 | Sistema   | Salvar Histórico de Conversa     | Disponibilizar log com as conversas realizadas com os usuários                     |     9      |
+| 10 | Comprador | Visualizar Imagem do Produto     | Conferir os produtos que quero inserir no carrinho                                 |     10     |
+
 <br/>
