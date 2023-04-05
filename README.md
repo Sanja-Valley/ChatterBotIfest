@@ -10,19 +10,19 @@ Projeto Integrador do 6º Semestre de Banco de Dados - FATEC Profº Jessen Vidal
     <tr>
       <td align="center" width="20%">
           <p><b>Product Owner</b></p>
-          <p><img src="https://github.com/EquipeFatec/api-5/blob/main/images/Time/Guilherme.jpg"/></p>
+          <p><img src="https://github.com/EquipeFatec/api-5/blob/main/images/Time/Guilherme.jpg" width="70%"/></p>
           <p><a href="https://github.com/guitambau">Guilherme <br/> Perfeito </a>
           <a href="https://www.linkedin.com/in/guilherme-perfeito-a76729168/"><img src="https://github.com/EquipeFatec/api/blob/main/images/linkedin.png"/></a></p>
         </td>
       <td align="center" width="20%">
           <p><b>Scrum Master</b></p>
-          <p><img src="https://github.com/EquipeFatec/api-5/blob/main/images/Time/Isabella.jpg"/></p>
+          <p><img src="https://github.com/EquipeFatec/api-5/blob/main/images/Time/Isabella.jpg" width="70%"/></p>
           <p><a href="https://github.com/isarps">Isabella Rosa <br/> Peixoto Segundo </a>
           <a href="https://www.linkedin.com/in/isabellarps/"><img src="https://github.com/EquipeFatec/api/blob/main/images/linkedin.png"/></a></p>
       </td>
       <td align="center" width="20%">
           <p><b>Dev</b></p>
-          <p><img src="https://github.com/EquipeFatec/api-5/blob/main/images/Time/Alexia.jpg"/></p>
+          <p><img src="https://github.com/EquipeFatec/api-5/blob/main/images/Time/Alexia.jpg" width="70%"/></p>
           <p><a href="https://github.com/alexiakarine">Alexia Karine Silva <br/> dos Santos </a>
           <a href="https://www.linkedin.com/in/alexia-karine-silva-5b0a79116/"><img src="https://github.com/EquipeFatec/api/blob/main/images/linkedin.png"/></a></p>
         </td>
