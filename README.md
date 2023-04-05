@@ -26,6 +26,12 @@ Projeto Integrador do 6º Semestre de Banco de Dados - FATEC Profº Jessen Vidal
           <p><a href="https://github.com/alexiakarine">Alexia Karine Silva <br/> dos Santos </a>
           <a href="https://www.linkedin.com/in/alexia-karine-silva-5b0a79116/"><img src="https://github.com/EquipeFatec/api/blob/main/images/linkedin.png"/></a></p>
         </td>
+        <td align="center" width="20%">
+          <p><b>Dev</b></p>
+          <p><img src="https://user-images.githubusercontent.com/49652498/230221682-2c33f364-94f8-409c-9713-a7dffca5b80d.png" width="70%"/></p>
+          <p><a href="https://github.com/BahijNoureddine">Bahij Jihad<br/> Noureddine </a>
+          <a href="https://www.linkedin.com/in/bahij-noureddine-941b681b7/"><img src="https://github.com/EquipeFatec/api/blob/main/images/linkedin.png"/></a></p>
+        </td>
     </tr>
   </table>
  </center>
