@@ -25,7 +25,7 @@ def atualizarCarrinho(carrinho, id):
     # Verifica se a atualização foi bem sucedida
     if result.modified_count == 1:
         # Se a atualização foi bem-sucedida, retorna uma mensagem em JSON
-        return jsonify({'message': 'Carrinho atualizado com sucesso.'}), 200
+        return jsonify({'message': 'Carrinho atualizado com sucesso.', 'id': id}), 200
     else:
         # Se a atualização falhou, retorna uma mensagem de erro em JSON
         return jsonify({'message': 'Não foi possível atualizar o carrinho.'}), 400
@@ -33,6 +33,6 @@ def atualizarCarrinho(carrinho, id):
 def adicionarCarrinho(carrinho):
     result = carrinhodb.insert_one(carrinho)
     if result.inserted_id:
-        return jsonify({'message': 'Carrinho adicionado com sucesso.'}), 200
+        return jsonify({'message': 'Carrinho adicionado com sucesso.', 'id': json.loads(dumps(result.inserted_id))}), 200
     else:
         return jsonify({'message': 'Não foi possível adicionar o carrinho.'}), 400
