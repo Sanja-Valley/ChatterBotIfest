@@ -12,7 +12,7 @@ def receber():
     contexto = request.json['contexto']
     n =  request.json['n']
 
-    if contexto == "finalizar":
+    if contexto == "finalizar" or mensagem.lower() == "finalizar":
         return finalizar()
     else:
         resposta, contexto, n = respostas(mensagem, contexto, n)
