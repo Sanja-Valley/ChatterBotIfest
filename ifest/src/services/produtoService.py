@@ -33,6 +33,7 @@ def atualizarCarrinho(carrinho, id):
 def adicionarCarrinho(carrinho):
     result = carrinhodb.insert_one(carrinho)
     if result.inserted_id:
-        return jsonify({'message': 'Carrinho adicionado com sucesso.', 'id': json.loads(dumps(result.inserted_id))}), 200
+        carrinho["_id"] = json.loads(dumps(result.inserted_id))
+        return jsonify({'message': 'Carrinho adicionado com sucesso.', 'carrinho': carrinho}), 200
     else:
         return jsonify({'message': 'Não foi possível adicionar o carrinho.'}), 400
