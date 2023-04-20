@@ -22,8 +22,6 @@ def generate_pix_qr_code(payload: str) -> str:
     return image_base64
 
 def gerarPix():
-    #floatValor = f"{valor:.2f}"
-    #payload = f"00020126450014BR.GOV.BCB.PIX0114+55129972207200205iFest5204000053039865406{floatValor}5802BR5925ISABELLA ROSA PEIXOTO SEG6009SAO PAULO622605221IxflE09aUaEMyZyVDo5w06304118E"
     payload = "00020126530014br.gov.bcb.pix0122bsegundo2001@gmail.com0205iFest5204000053039865802BR5925Isabella Rosa Peixoto Seg6009Sao Paulo62070503***63045061"
 
     qr_code_image_base64 = generate_pix_qr_code(payload)
