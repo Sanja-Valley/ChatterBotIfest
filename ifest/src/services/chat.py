@@ -1,4 +1,15 @@
-def respostas(recebido, contexto) -> tuple:
+from services import produtoService
+
+carrinho = {
+  "nome": "",
+  "cidade": "",
+  "convidados": 0,
+  "data": "",
+  "carrinho": [],
+  "total": 0
+}
+
+def respostas(recebido, contexto, n) -> tuple:
     recebido = recebido.lower()
 
     contextos = {
@@ -9,37 +20,53 @@ def respostas(recebido, contexto) -> tuple:
         "menu": menu
     }
 
-    if recebido == "voltar" and contexto not in ("geral", "menu") in recebido:
+    if recebido == "voltar" and contexto not in ("geral", "menu"):
         contexto = "menu"
-
-    mensagem, contexto = contextos[contexto](recebido)
+    
+    mensagem, contexto, n = contextos[contexto](recebido, n)
 
     if not mensagem:
         mensagem = "Desculpe, não entendi."
 
-    return mensagem, contexto
+    return mensagem, contexto, n
 
 
-def geral(recebido):
+def geral(recebido, n):
     mensagem = None
     contexto = "geral"
 
-    if recebido in ("oi", "olá", "aoba", "manda"):
-        mensagem = "Olá, a festa é para 50, 100, 150 ou 200 convidados?"
+    if recebido in (
+            "oi",
+            "olá",
+            "aoba",
+            "manda",
+            "bom dia",
+            "boa tarde",
+            "boa noite"):
+        mensagem = "Bem vindo(a) ao iFest! Qual o seu nome?"
+    
+    if(n == 1):
+        carrinho["nome"] = recebido
+        mensagem = f"{recebido}, A festa é para quantos convidados?"
 
-    if recebido in ("50", "100", "150", "200"):
-        mensagem = "Em qual mês deseja realizar o evento?"
+    if(n == 2):
+        carrinho["convidados"] = recebido
+        mensagem = "Em qual data será o evento?"
+    
+    if(n == 3):
+        carrinho["data"] = recebido
+        mensagem = "Em qual cidade será realizado o evento?"
 
-    if recebido in ("janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"):
-        mensagem = "O evento será em São José dos Campos ou Jacareí?"
-
-    if recebido in ("são josé dos campos", "jacareí", "jacarei", "sao jose dos campos", "sjc", "sanja", "jacacity"):
+    if(n == 4):
+        carrinho["cidade"] = recebido
         mensagem = "Entre Decoração, Local e Buffet, qual você deseja escolher?"
         contexto = "menu"
 
-    return mensagem, contexto
+    n += 1
+    return mensagem, contexto, n
 
-def menu(recebido):
+def menu(recebido, n):
+    n = 0
     mensagem = None
     contexto = "menu"
 
@@ -57,67 +84,109 @@ def menu(recebido):
         
     if recebido == "voltar":
         mensagem = "Para finalizar a compra digite FINALIZAR \nEntre Decoração, Local e Buffet, qual você deseja escolher?"
-    return mensagem, contexto
+
+    if recebido == "finalizar":
+        contexto = "finalizar"
+
+    return mensagem, contexto, n
 
 
-def decoracao(recebido):
+def decoracao(recebido, n):
     mensagem = None
     contexto = "decoracao"
 
+    recebido = recebido.replace(', ', ',')
+
     if any(item in ("arco de balões", "arco") for item in recebido.split(",")):
         mensagem = "Item adicionado com sucesso! \nDigite VOLTAR para continuar comprando ou FINALIZAR a compra"
+        carrinho["carrinho"].append({"item": "Arco de Balões", "preco": 180.00})
+        carrinho["total"] += 180.00
 
     if any(item in ("bolo fake", "bolo") for item in recebido.split(",")):
         mensagem = "Item adicionado com sucesso! \nDigite VOLTAR para continuar comprando ou FINALIZAR a compra"
+        carrinho["carrinho"].append({"item": "Bolo Fake", "preco": 50.00})
+        carrinho["total"] += 50.00
+
 
     if any(item in ("kit de móveis provençais", "kit", "provençal", "móvel", "movel", "moveis", "móveis") for item in recebido.split(",")):
         mensagem = "Item adicionado com sucesso! \nDigite VOLTAR para continuar comprando ou FINALIZAR a compra"
+        carrinho["carrinho"].append({"item": "Kit de Móveis Provençais", "preco": 180.00})
+        carrinho["total"] += 180.00
 
-    if any(item in ("painel de tecido", "tecido", "painel") for item in recebido.split(",")):
+    if any(item in ("painel de tecido", "tecido") for item in recebido.split(",")):
         mensagem = "Item adicionado com sucesso! \nDigite VOLTAR para continuar comprando ou FINALIZAR a compra"
+        carrinho["carrinho"].append({"item": "Painel de Tecido", "preco": 100.00})
+        carrinho["total"] += 100.00
+    
+    if any(item in ("painel de balões", "balões") for item in recebido.split(",")):
+        mensagem = "Item adicionado com sucesso! \nDigite VOLTAR para continuar comprando ou FINALIZAR a compra"
+        carrinho["carrinho"].append({"item": "Painel de Balões", "preco": 130.00})
+        carrinho["total"] += 100.00
 
     if recebido == "finalizar":
-        contexto = "geral"
+        contexto = "finalizar"
 
-    return mensagem, contexto
+    return mensagem, contexto, n
 
 
-def buffet(recebido):
+def buffet(recebido, n):
     mensagem = None
     contexto = "buffet"
 
-    if any(item in ("arroz e guarnição", "guarnição", "arroz") for item in recebido.split(",")):
-        mensagem = "Item adicionado com sucesso! \nDigite VOLTAR para continuar comprando ou FINALIZAR para compra"
-        
-    if any(item in ("bolo de corte", "bolo") for item in recebido.split(",")):
+    if recebido:
+    
+        recebido = recebido.replace(', ', ',')
+
+        if any(item in ("arroz e guarnição", "guarnição", "arroz") for item in recebido.split(",")):
+            carrinho["carrinho"].append({"item": "Arroz e Guranição", "preco": 300.00})
+            carrinho["total"] += 300.00
+
+        if any(item in ("bolo de corte", "bolo") for item in recebido.split(",")):
+            carrinho["carrinho"].append({"item": "Bolo de Corte", "preco": 100.00})
+            carrinho["total"] += 100.00
+            
+        if any(item in ("churrasco", "carne") for item in recebido.split(",")):
+            carrinho["carrinho"].append({"item": "Churrasco", "preco": 400.00})
+            carrinho["total"] += 400.00
+
+        if any(item in ("massas", "massa") for item in recebido.split(",")):
+            carrinho["carrinho"].append({"item": "Massas", "preco": 300.00})
+            carrinho["total"] += 300.00
+
+        if any(item in ("bebidas", "bebida") for item in recebido.split(",")):
+            carrinho["carrinho"].append({"item": "Bebidas", "preco": 500.00})
+            carrinho["total"] += 500.00
+
+        if recebido == "finalizar":
+            contexto = "finalizar"
+    
         mensagem = "Item adicionado com sucesso! \nDigite VOLTAR para continuar comprando ou FINALIZAR a compra"
-        
-    if any(item in ("churrasco", "carne") for item in recebido.split(",")):
-        mensagem = "Item adicionado com sucesso! \nDigite VOLTAR para continuar comprando ou FINALIZAR a compra"
-        
-    if ("massas",) in recebido:
-        mensagem = "Item adicionado com sucesso! \nDigite VOLTAR para continuar comprando ou FINALIZAR a compra"
 
-    if ("bebidas",) in recebido:
-        mensagem = "Item adicionado com sucesso! \nDigite VOLTAR para continuar comprando ou FINALIZAR a compra"
-
-    if recebido == "finalizar":
-        contexto = "geral"
-
-    return mensagem, contexto
+    return mensagem, contexto, n
 
 
-def local(recebido):
+def local(recebido, n):
     mensagem = None
     contexto = "local"
 
-    if ("salão") in recebido:
+    recebido = recebido.replace(', ', ',')
+
+    if recebido:
+
+        if any(item in ("salão", "salao") for item in recebido.split(",")):
+            carrinho["carrinho"].append({"item": "Salão", "preco": 800.00})
+            carrinho["total"] += 800.00
+
+        if any(item in ("chácara", "chacara") for item in recebido.split(",")):
+            carrinho["carrinho"].append({"item": "Chácara", "preco": 1000.00})
+            carrinho["total"] += 1000.00
+
+        if recebido == "finalizar":
+            contexto = "finalizar"
+
         mensagem = "Item adicionado com sucesso! \nDigite VOLTAR para continuar comprando ou FINALIZAR a compra"
 
-    if ("chacara", "chácara") in recebido:
-        mensagem = "Item adicionado com sucesso! \nDigite VOLTAR para continuar comprando ou FINALIZAR a compra"
+    return mensagem, contexto, n
 
-    if recebido == "finalizar":
-        contexto = "geral"
-
-    return mensagem, contexto
+def finalizar():
+    return produtoService.adicionarCarrinho(carrinho)

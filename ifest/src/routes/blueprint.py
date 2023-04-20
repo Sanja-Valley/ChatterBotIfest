@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from services.chat import respostas
+from services.chat import respostas, finalizar
 from controllers.chatController import testeChat
 from controllers.produtoController import atualizarProdutosCarrinho, buscarCarrinho
 
@@ -10,8 +10,13 @@ blueprint = Blueprint('blueprint', __name__)
 def receber():
     mensagem = request.json['mensagem']
     contexto = request.json['contexto']
-    resposta, contexto = respostas(mensagem, contexto)
-    return {'resposta': resposta, 'contexto': contexto}
+    n =  request.json['n']
+
+    if contexto == "finalizar":
+        return finalizar()
+    else:
+        resposta, contexto, n = respostas(mensagem, contexto, n)
+        return {'resposta': resposta, 'contexto': contexto, "n": n}
 
 
 blueprint.route('/teste', methods=['GET'])(testeChat)
