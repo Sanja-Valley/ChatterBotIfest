@@ -19,7 +19,7 @@ def receber():
     ]
     imagens_url = [f'http://localhost:5000/{p}' for p in images_path]
 
-    if contexto == "finalizar":
+    if contexto == "finalizar" or mensagem.lower() == "finalizar":
         return finalizar()
     else:
         resposta, contexto, n = respostas(mensagem, contexto, n)
