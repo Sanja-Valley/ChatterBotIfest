@@ -1,4 +1,5 @@
-from services import produtoService
+from services import produtoService, pixService
+from flask import jsonify
 
 carrinho = {
   "nome": "",
@@ -47,7 +48,7 @@ def geral(recebido, n):
     
     if(n == 1):
         carrinho["nome"] = recebido
-        mensagem = f"{recebido}, A festa é para quantos convidados?"
+        mensagem = f"{recebido.upper()}, A festa é para quantos convidados?"
 
     if(n == 2):
         carrinho["convidados"] = recebido
@@ -189,4 +190,23 @@ def local(recebido, n):
     return mensagem, contexto, n
 
 def finalizar():
-    return produtoService.adicionarCarrinho(carrinho)
+    c = produtoService.adicionarCarrinho(carrinho)
+    if c:
+        nome = c['nome'].upper()
+        convidados = c["convidados"]
+        data = c["data"]
+        cidade = c["cidade"]
+
+        mensagem = f"{nome},\nDados da sua festa: \nQuantidade de Convidados: {convidados} \nData: {data} \nCidade: {cidade} \n\nProdutos Adquiridos:\n"
+        for produto in c["carrinho"]:
+            mensagem += f"{produto['item']} - R${produto['preco']}\n"
+        
+        mensagem += f"\nVALOR TOTAL:{c['total']}"
+        pix = pixService.gerarPix()
+
+        mensagem += f"\n\nPix para Pagamento: \nCódigo Copia e Cola: {pix['payload']} \nQR Code: {pix['qr_code_image']} \n\nAgradecemos por realizar sua festa conosco!"
+
+        return mensagem
+    else:
+        return jsonify({'message': 'Não foi possível finalizar a compra.'}), 400
+
