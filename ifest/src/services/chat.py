@@ -73,23 +73,23 @@ def menu(recebido, n):
 
     if any(item in ("decoração", "decoracao") for item in recebido.split(",")):
         mensagem = "Qual você deseja contratar: \n1.Arco de balões(R$180,00)\n2.Bolo fake(R$50,00)" \
-                   "\n3.Kit de móveis provençais(R$180,00)\n4.Painel de balões(R$130,00)" \
-                   "\n5.Painel de tecido(R$100,00)\nVoltar"
+                   "\n3.Móveis provençais(R$180,00)\n4.Painel de balões(R$130,00)" \
+                   "\n5.Painel de tecido(R$100,00)\n0.Voltar|decoracao"
         contexto = "decoracao"
 
     if any(item in ("buffet", "comida") for item in recebido.split(",")):
-        mensagem = "Qual você deseja contratar: \nArroz e guarnição(R$300,00)\nBolo de corte(R$100,00)" \
-                   "\nChurrasco(R$400,00)\nMassas(R$300,00)\nBebidas(R$500,00)\nVoltar"
+        mensagem = "Qual você deseja contratar: \n1.Arroz e guarnição(R$300,00)\n2.Bolo de corte(R$100,00)" \
+                   "\n3.Churrasco(R$400,00)\n4.Massas(R$300,00)\n5.Bebidas(R$500,00)\n0.Voltar"
         contexto = "buffet"
 
     if any(item in ("local", "lugar")for item in recebido.split(",")):
-        mensagem = "Qual você deseja contratar: \n1.Chacára(R$1.000,00)\n2.Salão(R$800,00)\nVoltar|local"
+        mensagem = "Qual você deseja contratar: \n1.Chacára(R$1.000,00)\n2.Salão(R$800,00)\n\nVoltar|local"
         contexto = "local"
 
         
-    if recebido == "voltar":
-        mensagem = "Para finalizar a compra digite FINALIZAR " \
-                   "\nEntre Decoração, Local e Buffet, qual você deseja escolher?"
+    if recebido in ("voltar", "0"):
+        mensagem = "Para encerrar a compra digite FINALIZAR ou escolha entre" \
+                   "\nDecoração, Local e Buffet para continuar comprando."
 
     if recebido == "finalizar":
         contexto = "finalizar"
@@ -148,23 +148,23 @@ def buffet(recebido, n):
     
         recebido = recebido.replace(', ', ',')
 
-        if any(item in ("arroz e guarnição", "guarnição", "arroz") for item in recebido.split(",")):
+        if any(item in ("arroz e guarnição", "guarnição", "arroz", "1") for item in recebido.split(",")):
             carrinho["carrinho"].append({"item": "Arroz e Guranição", "preco": 300.00})
             carrinho["total"] += 300.00
 
-        if any(item in ("bolo de corte", "bolo") for item in recebido.split(",")):
+        if any(item in ("bolo de corte", "bolo", "2") for item in recebido.split(",")):
             carrinho["carrinho"].append({"item": "Bolo de Corte", "preco": 100.00})
             carrinho["total"] += 100.00
             
-        if any(item in ("churrasco", "carne") for item in recebido.split(",")):
+        if any(item in ("churrasco", "carne", "3") for item in recebido.split(",")):
             carrinho["carrinho"].append({"item": "Churrasco", "preco": 400.00})
             carrinho["total"] += 400.00
 
-        if any(item in ("massas", "massa") for item in recebido.split(",")):
+        if any(item in ("massas", "massa", "4") for item in recebido.split(",")):
             carrinho["carrinho"].append({"item": "Massas", "preco": 300.00})
             carrinho["total"] += 300.00
 
-        if any(item in ("bebidas", "bebida") for item in recebido.split(",")):
+        if any(item in ("bebidas", "bebida", "5") for item in recebido.split(",")):
             carrinho["carrinho"].append({"item": "Bebidas", "preco": 500.00})
             carrinho["total"] += 500.00
 
@@ -172,7 +172,7 @@ def buffet(recebido, n):
             contexto = "finalizar"
     
         mensagem = "Item adicionado com sucesso! \nDigite VOLTAR para continuar comprando ou" \
-                   " FINALIZAR para encerrar a compra"
+                   " FINALIZAR para encerrar a compra."
 
     return mensagem, contexto, n
 
@@ -197,7 +197,7 @@ def local(recebido, n):
             contexto = "finalizar"
 
         mensagem = "Item adicionado com sucesso! \nDigite VOLTAR para continuar comprando ou" \
-                   " FINALIZAR para encerrar a compra"
+                   " FINALIZAR para encerrar a compra."
 
     return mensagem, contexto, n
 
