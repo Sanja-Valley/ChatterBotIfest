@@ -10,7 +10,7 @@ blueprint = Blueprint('blueprint', __name__)
 def receber():
     mensagem = request.json['mensagem']
     contexto = request.json['contexto']
-    n =  request.json['n']
+    n =  request.json['n']   
 
     if contexto == "finalizar" or mensagem.lower() == "finalizar":
         return finalizar()
