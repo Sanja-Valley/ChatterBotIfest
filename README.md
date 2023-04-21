@@ -61,4 +61,49 @@ Criado pela equipe _Sanja Valley_, este projeto visa desenvolver um Chatbot de v
 | 09 | Sistema   | Salvar Histórico de Conversa     | Disponibilizar log com as conversas realizadas com os usuários                     |     9      |
 | 10 | Comprador | Visualizar Imagem do Produto     | Conferir os produtos que quero inserir no carrinho                                 |     10     |
 
-<br/>
+<hr/>
+
+# :computer: Tecnologias Utilizadas
+![image](https://user-images.githubusercontent.com/49652498/233513323-bca84a4a-aa89-4b6e-98a1-be8ce02ed1ed.png)<br/>
+
+<hr/>
+
+# :globe_with_meridians: Modelagem Banco de Dados Relacional
+![modelo_fisico_bd](https://user-images.githubusercontent.com/49652498/233511898-286293e5-6235-4068-81dd-8f2e48615608.jpeg)<br/>
+
+<hr/>
+
+# :open_file_folder: Entregas
+
+<hr/>
+
+## Sprint 1
+#### :gear:	Backend
+- Fluxo inicial de conversa Python
+- Exibição do menu de compra
+- Adicionar e alterar carrinho de compras
+- Cálculo total da compra
+- Integração com MongoDB
+#### :package: Banco de Dados
+- Adicionar e alterar carrinho de compras no banco de dados MongoDB
+#### :bulb: <a href="https://github.com/Sanja-Valley/ChatterBotIfest/blob/main/Apresenta%C3%A7%C3%B5es/Sprint-1.pdf">Apresentação</a>
+
+<hr/>
+
+## Sprint 2
+#### :gear:	Backend
+- Arquitetura com Flask
+- Endpoints de envio/recepção de mensagens
+- Integração com finalização de compra
+- QR Code Pix
+- Exibição de Imagens
+#### :iphone:	Frontend
+- Arquitetura inicial com VueJS
+- Tela do chat
+- Exibição de mensagens
+- Integração de mensagens com Backend
+- Exibição de Imagens
+#### :package: Banco de Dados
+- Finalização de compras no MongoDB
+- Criação do Banco Relacional PostgreSQL
+#### :bulb: <a href="https://github.com/Sanja-Valley/ChatterBotIfest/blob/main/Apresenta%C3%A7%C3%B5es/Sprint-2.pdf">Apresentação</a>
