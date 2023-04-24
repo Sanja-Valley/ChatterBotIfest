@@ -11,3 +11,4 @@ app.register_blueprint(blueprint, url_prefix='/chat')
 def main():
     return 'Olá! Bem-vindo ao iFest. Qual o seu nome?'
 
+app.run()
