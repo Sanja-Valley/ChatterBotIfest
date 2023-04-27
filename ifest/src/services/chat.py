@@ -218,7 +218,7 @@ def finalizar():
 
         mensagem += f"\n\nPix para Pagamento: \nCódigo Copia e Cola: {pix['payload']} \nQR Code: {pix['qr_code_image']} \n\nAgradecemos por realizar sua festa conosco!"
 
-        return {'resposta': mensagem, 'contexto': "finalizar", "n": 0}
+        return mensagem
     else:
-        return jsonify({'message': 'Não foi possível finalizar a compra.'}), 400
+        return 'Não foi possível finalizar a compra.'
 
