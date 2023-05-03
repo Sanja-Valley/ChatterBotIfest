@@ -213,12 +213,19 @@ def finalizar():
         for produto in c["carrinho"]:
             mensagem += f"{produto['item']} - R${produto['preco']}\n"
         
-        mensagem += f"\nVALOR TOTAL:{c['total']}"
+        mensagem += f"\nVALOR TOTAL:{c['total']} \nAgradecemos por realizar sua festa conosco!"
         pix = pixService.gerarPix()
 
-        mensagem += f"\n\nPix para Pagamento: \nCódigo Copia e Cola: {pix['payload']} \nQR Code: {pix['qr_code_image']} \n\nAgradecemos por realizar sua festa conosco!"
+        return {
+            'resposta': mensagem,
+            'contexto': "finalizar",
+            "n": 0,
+            "pix": {
+                "copia_cola": pix['payload'],
+                "codigo_QR": pix['qr_code_image']
+            }
+        }
 
-        return mensagem
     else:
         return 'Não foi possível finalizar a compra.'
 

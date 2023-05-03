@@ -13,8 +13,9 @@ log = {}
 def receber():
     mensagem = request.json['mensagem']
     contexto = request.json['contexto']
-    n =  request.json['n']
 
+    n = request.json['n']
+    
     inserirLog({'user': mensagem, 'date': str(datetime.now())})
 
     if contexto == "finalizar" or mensagem.lower() == "finalizar":
