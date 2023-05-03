@@ -216,8 +216,6 @@ def finalizar():
         mensagem += f"\nVALOR TOTAL:{c['total']} \nAgradecemos por realizar sua festa conosco!"
         pix = pixService.gerarPix()
 
-        #mensagem += f"\n\nPix para Pagamento: \nCódigo Copia e Cola: {pix['payload']} \nQR Code: {pix['qr_code_image']} \n\n"
-
         return {
             'resposta': mensagem,
             'contexto': "finalizar",
@@ -227,6 +225,7 @@ def finalizar():
                 "codigo_QR": pix['qr_code_image']
             }
         }
+
     else:
-        return jsonify({'message': 'Não foi possível finalizar a compra.'}), 400
+        return 'Não foi possível finalizar a compra.'
 
