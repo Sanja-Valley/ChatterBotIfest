@@ -1,5 +1,7 @@
 from services import produtoService, pixService
 from flask import jsonify
+from datetime import datetime, date
+
 
 carrinho = {
   "nome": "",
@@ -11,6 +13,7 @@ carrinho = {
 }
 
 def respostas(recebido, contexto, n) -> tuple:
+
     recebido = recebido.lower()
 
     contextos = {
@@ -26,8 +29,12 @@ def respostas(recebido, contexto, n) -> tuple:
     
     mensagem, contexto, n = contextos[contexto](recebido, n)
 
+    if recebido.isspace() or not recebido:
+        mensagem = "Por favor, digite uma mensagem"
+
     if not mensagem:
         mensagem = "Desculpe, não entendi."
+
 
     return mensagem, contexto, n
 
@@ -36,27 +43,35 @@ def geral(recebido, n):
     mensagem = None
     contexto = "geral"
 
-    if recebido in (
-            "oi",
-            "olá",
-            "aoba",
-            "manda",
-            "bom dia",
-            "boa tarde",
-            "boa noite"):
-        mensagem = "Você está no iFest! Qual o seu nome?"
+    mensagem = "Você está no iFest! Qual o seu e-mail?"
     
     if(n == 1):
         carrinho["nome"] = recebido
+
+        #ToDo: Buscar o usuario pelo email informado
         mensagem = f"{recebido.capitalize()}, a festa é para quantos convidados?"
 
     if(n == 2):
-        carrinho["convidados"] = recebido
-        mensagem = "Em qual data será o evento?"
+        try:
+            int(recebido)
+            carrinho["convidados"] = recebido
+            mensagem = "Em qual data será o evento?"
+        except:
+            mensagem = "Por favor, insira um número válido"
+            n = 1
     
     if(n == 3):
-        carrinho["data"] = recebido
-        mensagem = "Em qual cidade será realizado o evento?"
+        try:
+            data = datetime.strptime(recebido, '%d/%m/%Y')
+            if data.date() <= date.today():
+                mensagem = "Por favor, insira uma data posterior a hoje"
+                n = 2
+            else:
+                carrinho["data"] = recebido
+                mensagem = "Em qual cidade será realizado o evento?"
+        except ValueError:
+            mensagem = "Por favor, insira uma data válida no formato dd/mm/aaaa"
+            n = 2
 
     if(n == 4):
         carrinho["cidade"] = recebido
@@ -86,7 +101,6 @@ def menu(recebido, n):
         mensagem = "Qual você deseja contratar: \n1.Chacára(R$1.000,00)\n2.Salão(R$800,00)\nVoltar|local"
         contexto = "local"
 
-        
     if recebido == "voltar":
         mensagem = "Para finalizar a compra digite FINALIZAR " \
                    "\nEntre Decoração, Local e Buffet, qual você deseja escolher?"
