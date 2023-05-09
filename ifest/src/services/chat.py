@@ -1,9 +1,10 @@
-from services import produtoService, pixService
+from services import produtoService, pixService, usuarioService
 from flask import jsonify
 from datetime import datetime, date
 
 
 carrinho = {
+  "email": "",
   "nome": "",
   "cidade": "",
   "convidados": 0,
@@ -46,10 +47,16 @@ def geral(recebido, n):
     mensagem = "Você está no iFest! Qual o seu e-mail?"
     
     if(n == 1):
-        carrinho["nome"] = recebido
+        carrinho["email"] = recebido
 
-        #ToDo: Buscar o usuario pelo email informado
-        mensagem = f"{recebido.capitalize()}, a festa é para quantos convidados?"
+        usuario = usuarioService.buscarUsuario(recebido)
+
+        if usuario == 0 :
+            mensagem = "Usuário não encontrado. Insira um e-mail válido."
+            n = 0
+        else:
+            carrinho["nome"] = usuario
+            mensagem = f"{usuario}, a festa é para quantos convidados?"
 
     if(n == 2):
         try:
@@ -218,7 +225,7 @@ def local(recebido, n):
 def finalizar():
     c = produtoService.adicionarCarrinho(carrinho)
     if c:
-        nome = c['nome'].upper()
+        nome = c["nome"]
         convidados = c["convidados"]
         data = c["data"]
         cidade = c["cidade"]
