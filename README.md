@@ -107,3 +107,19 @@ Criado pela equipe _Sanja Valley_, este projeto visa desenvolver um Chatbot de v
 - Finalização de compras no MongoDB
 - Criação do Banco Relacional PostgreSQL
 #### :bulb: <a href="https://github.com/Sanja-Valley/ChatterBotIfest/blob/main/Apresenta%C3%A7%C3%B5es/Sprint-2.pdf">Apresentação</a>
+
+<hr/>
+
+## Sprint 3
+#### :gear:	Backend
+- Salvar Histórico de Conversas
+- Regras de Validação e Verificação dos Inputs
+- Integração SQL
+- Associação de compra a e-mail
+- Recomendações
+#### :iphone:	Frontend
+- Exibição QR Code e Pix Copia e Cola
+- Aceitação de Termos LGPD
+#### :package: Banco de Dados
+- Salvar Logs de Conversa MongoDB
+#### :bulb: <a href="https://github.com/Sanja-Valley/ChatterBotIfest/blob/main/Apresenta%C3%A7%C3%B5es/Sprint-3.pdf">Apresentação</a>
