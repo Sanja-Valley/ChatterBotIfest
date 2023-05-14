@@ -1,5 +1,5 @@
 from services import produtoService, pixService, usuarioService
-from flask import jsonify
+import pandas as pd
 from datetime import datetime, date
 
 
@@ -94,9 +94,12 @@ def menu(recebido, n):
     contexto = "menu"
 
     if any(item in ("decoração", "decoracao") for item in recebido.split(",")):
-        mensagem = "Qual você deseja contratar: \n1.Arco de balões(R$180,00)\n2.Bolo fake(R$50,00)" \
-                   "\n3.Kit de móveis provençais(R$180,00)\n4.Painel de balões(R$130,00)" \
-                   "\n5.Painel de tecido(R$100,00)\nVoltar"
+        ola = produtoService.recomendacao()
+        print(ola)
+        # mensagem = "Qual você deseja contratar: \n1.Arco de balões(R$180,00)\n2.Bolo fake(R$50,00)" \
+        #            "\n3.Kit de móveis provençais(R$180,00)\n4.Painel de balões(R$130,00)" \
+        #            "\n5.Painel de tecido(R$100,00)\nVoltar"
+        mensagem = ola + "\nVoltar"
         contexto = "decoracao"
 
     if any(item in ("buffet", "comida") for item in recebido.split(",")):
