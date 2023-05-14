@@ -5,6 +5,7 @@ from controllers.produtoController import atualizarProdutosCarrinho, buscarCarri
 from services.logService import inserirLog
 from datetime import datetime
 from pymongo import MongoClient
+from config import get_database
 
 
 blueprint = Blueprint('blueprint', __name__)
@@ -43,8 +44,7 @@ def search(id):
 
 @blueprint.route('/salvar', methods=['POST'])
 def salvar():
-    client = MongoClient('localhost', 27017)
-    db = client['iFestDB']
+    db = get_database()
     collection = db['LGPD']
 
     data = request.get_json()
@@ -53,4 +53,4 @@ def salvar():
     estado = data['estado']
     data_hora = data['data']
     collection.insert_one({'nome': nome, 'email': email, 'data_hora': data_hora, 'estado': estado})
-    return 'Usuário inserido com sucesso'
+    return 'Modificação inserida com sucesso'
