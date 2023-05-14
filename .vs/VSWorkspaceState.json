@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\ifest",
+    "\\ifest\\src",
+    "\\ifest\\src\\controllers",
+    "\\ifest\\src\\models",
+    "\\ifest\\src\\services"
+  ],
+  "SelectedNode": "\\ifest\\src\\services\\produtoService.py",
+  "PreviewInSolutionExplorer": false
+}

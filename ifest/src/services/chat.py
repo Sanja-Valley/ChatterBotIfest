@@ -1,17 +1,21 @@
-from services import produtoService, pixService
+from services import produtoService, pixService, usuarioService
 from flask import jsonify
+from datetime import datetime, date
+
 
 carrinho = {
-    "nome": "",
-    "cidade": "",
-    "convidados": 0,
-    "data": "",
-    "carrinho": [],
-    "total": 0
+  "email": "",
+  "nome": "",
+  "cidade": "",
+  "convidados": 0,
+  "data": "",
+  "carrinho": [],
+  "total": 0
 }
 
 
 def respostas(recebido, contexto, n) -> tuple:
+
     recebido = recebido.lower()
 
     contextos = {
@@ -27,8 +31,12 @@ def respostas(recebido, contexto, n) -> tuple:
 
     mensagem, contexto, n = contextos[contexto](recebido, n)
 
+    if recebido.isspace() or not recebido:
+        mensagem = "Por favor, digite uma mensagem"
+
     if not mensagem:
         mensagem = "Desculpe, não entendi."
+
 
     return mensagem, contexto, n
 
@@ -37,27 +45,41 @@ def geral(recebido, n):
     mensagem = None
     contexto = "geral"
 
-    if recebido in (
-            "oi",
-            "olá",
-            "aoba",
-            "manda",
-            "bom dia",
-            "boa tarde",
-            "boa noite"):
-        mensagem = "Você está no iFest! Qual o seu nome?"
+    mensagem = "Você está no iFest! Qual o seu e-mail?"
+    
+    if(n == 1):
+        carrinho["email"] = recebido
 
-    if (n == 1):
-        carrinho["nome"] = recebido
-        mensagem = f"{recebido.capitalize()}, a festa é para quantos convidados?"
+        usuario = usuarioService.buscarUsuario(recebido)
 
-    if (n == 2):
-        carrinho["convidados"] = recebido
-        mensagem = "Em qual data será o evento?"
+        if usuario == 0 :
+            mensagem = "Usuário não encontrado. Insira um e-mail válido."
+            n = 0
+        else:
+            carrinho["nome"] = usuario
+            mensagem = f"{usuario}, a festa é para quantos convidados?"
 
-    if (n == 3):
-        carrinho["data"] = recebido
-        mensagem = "Em qual cidade será realizado o evento?"
+    if(n == 2):
+        try:
+            int(recebido)
+            carrinho["convidados"] = recebido
+            mensagem = "Em qual data será o evento?"
+        except:
+            mensagem = "Por favor, insira um número válido"
+            n = 1
+    
+    if(n == 3):
+        try:
+            data = datetime.strptime(recebido, '%d/%m/%Y')
+            if data.date() <= date.today():
+                mensagem = "Por favor, insira uma data posterior a hoje"
+                n = 2
+            else:
+                carrinho["data"] = recebido
+                mensagem = "Em qual cidade será realizado o evento?"
+        except ValueError:
+            mensagem = "Por favor, insira uma data válida no formato dd/mm/aaaa"
+            n = 2
 
     if (n == 4):
         carrinho["cidade"] = recebido
@@ -80,8 +102,8 @@ def menu(recebido, n):
         contexto = "decoracao"
 
     if any(item in ("buffet", "comida") for item in recebido.split(",")):
-        mensagem = "Qual você deseja contratar: \nArroz e guarnição(R$300,00)\nBolo de corte(R$100,00)" \
-                   "\nChurrasco(R$400,00)\nMassas(R$300,00)\nBebidas(R$500,00)\nVoltar"
+        mensagem = "Qual você deseja contratar (valores por convidado): \nArroz e guarnição(R$8,00)\nBolo de corte(R$10,00)" \
+                   "\nChurrasco(R$40,00)\nMassas(R$80,00)\nBebidas(R$15,00)\nVoltar"
         contexto = "buffet"
 
     if any(item in ("local", "lugar") for item in recebido.split(",")):
@@ -144,30 +166,38 @@ def decoracao(recebido, n):
 def buffet(recebido, n):
     mensagem = None
     contexto = "buffet"
+    qtd_convidados = int(carrinho["convidados"])
 
     if recebido:
 
         recebido = recebido.replace(', ', ',')
 
         if any(item in ("arroz e guarnição", "guarnição", "arroz") for item in recebido.split(",")):
-            carrinho["carrinho"].append({"item": "Arroz e Guranição", "preco": 300.00})
-            carrinho["total"] += 300.00
+            preco = 8 * qtd_convidados
+            carrinho["carrinho"].append({"item": "Arroz e Guranição", "preco": preco })
+            carrinho["total"] += preco
 
         if any(item in ("bolo de corte", "bolo") for item in recebido.split(",")):
-            carrinho["carrinho"].append({"item": "Bolo de Corte", "preco": 100.00})
-            carrinho["total"] += 100.00
+
+            preco = 10 * qtd_convidados
+            carrinho["carrinho"].append({"item": "Bolo de Corte", "preco": preco })
+            carrinho["total"] += preco
+            
 
         if any(item in ("churrasco", "carne") for item in recebido.split(",")):
-            carrinho["carrinho"].append({"item": "Churrasco", "preco": 400.00})
-            carrinho["total"] += 400.00
+            preco = 40 * qtd_convidados
+            carrinho["carrinho"].append({"item": "Churrasco", "preco": preco })
+            carrinho["total"] += preco
 
         if any(item in ("massas", "massa") for item in recebido.split(",")):
-            carrinho["carrinho"].append({"item": "Massas", "preco": 300.00})
-            carrinho["total"] += 300.00
+            preco = 80 * qtd_convidados
+            carrinho["carrinho"].append({"item": "Massas", "preco": preco })
+            carrinho["total"] += preco
 
         if any(item in ("bebidas", "bebida") for item in recebido.split(",")):
-            carrinho["carrinho"].append({"item": "Bebidas", "preco": 500.00})
-            carrinho["total"] += 500.00
+            preco = 15 * qtd_convidados
+            carrinho["carrinho"].append({"item": "Bebidas", "preco": preco })
+            carrinho["total"] += preco
 
         if recebido == "finalizar":
             contexto = "finalizar"
@@ -206,7 +236,7 @@ def local(recebido, n):
 def finalizar():
     c = produtoService.adicionarCarrinho(carrinho)
     if c:
-        nome = c['nome'].upper()
+        nome = c["nome"]
         convidados = c["convidados"]
         data = c["data"]
         cidade = c["cidade"]
@@ -219,16 +249,17 @@ def finalizar():
         pix = pixService.gerarPix()
 
         mensagem_pix = {
-            "n": 0,
-            'contexto': "finalizar",
             'mensagem': mensagem,
-            "pix": {
-                "copia_cola": pix['payload'],
-                "codigo_QR": pix['qr_code_image']
+            'pix': {
+                'copia_cola': pix['payload'],
+                'codigo_QR': pix['qr_code_image']
+
             }
         }
         print(mensagem_pix)
         print(mensagem)
+        return mensagem_pix
+
         return mensagem_pix
 
     else:
