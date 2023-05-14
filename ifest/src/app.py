@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from routes.blueprint import blueprint
 from flask_cors import CORS
 
@@ -11,4 +11,7 @@ app.register_blueprint(blueprint, url_prefix='/chat')
 def main():
     return 'Olá! Bem-vindo ao iFest. Qual o seu nome?'
 
+
+if __name__ == '__main__':
+    app.run(port=5000)
 app.run()
