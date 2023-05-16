@@ -98,7 +98,7 @@ def menu(recebido, n):
     if any(item in ("decoração", "decoracao") for item in recebido.split(",")):
         mensagem = "Qual você deseja contratar: \n1.Arco de balões(R$180,00)\n2.Bolo fake(R$50,00)" \
                    "\n3.Kit de móveis provençais(R$180,00)\n4.Painel de balões(R$130,00)" \
-                   "\n5.Painel de tecido(R$100,00)\nVoltar|decoração"
+                   "\n5.Painel de tecido(R$100,00)\nVoltar"
         contexto = "decoracao"
 
     if any(item in ("buffet", "comida") for item in recebido.split(",")):
@@ -256,8 +256,7 @@ def finalizar():
 
             }
         }
-        print(mensagem_pix)
-        print(mensagem)
+
         return mensagem_pix
 
         return mensagem_pix

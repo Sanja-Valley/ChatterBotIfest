@@ -27,7 +27,6 @@ def receber():
         resposta, contexto, n = respostas(mensagem, contexto, n)
 
     inserirLog({'bot': resposta, 'date': str(datetime.now())})
-    print('retorno',{'resposta': resposta, 'contexto': contexto, "n": n})
     return {'resposta': resposta, 'contexto': contexto, "n": n}
 
 
