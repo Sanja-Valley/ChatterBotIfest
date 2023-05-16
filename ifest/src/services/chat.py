@@ -1,5 +1,4 @@
 from services import produtoService, pixService, usuarioService
-import pandas as pd
 from datetime import datetime, date
 
 
@@ -12,6 +11,7 @@ carrinho = {
   "carrinho": [],
   "total": 0
 }
+
 
 def respostas(recebido, contexto, n) -> tuple:
 
@@ -27,7 +27,7 @@ def respostas(recebido, contexto, n) -> tuple:
 
     if recebido == "voltar" and contexto not in ("geral", "menu"):
         contexto = "menu"
-    
+
     mensagem, contexto, n = contextos[contexto](recebido, n)
 
     if recebido.isspace() or not recebido:
@@ -80,13 +80,14 @@ def geral(recebido, n):
             mensagem = "Por favor, insira uma data válida no formato dd/mm/aaaa"
             n = 2
 
-    if(n == 4):
+    if (n == 4):
         carrinho["cidade"] = recebido
         mensagem = "Entre Decoração, Local e Buffet, qual você deseja escolher?"
         contexto = "menu"
 
     n += 1
     return mensagem, contexto, n
+
 
 def menu(recebido, n):
     n = 0
@@ -107,7 +108,7 @@ def menu(recebido, n):
                    "\nChurrasco(R$40,00)\nMassas(R$80,00)\nBebidas(R$15,00)\nVoltar"
         contexto = "buffet"
 
-    if any(item in ("local", "lugar")for item in recebido.split(",")):
+    if any(item in ("local", "lugar") for item in recebido.split(",")):
         mensagem = "Qual você deseja contratar: \n1.Chacára(R$1.000,00)\n2.Salão(R$800,00)\nVoltar|local"
         contexto = "local"
 
@@ -126,8 +127,6 @@ def decoracao(recebido, n):
     contexto = "decoracao"
 
     recebido = recebido.replace(', ', ',')
-
-    ola = produtoService.finalizar_carrinho(str(recebido))
 
     if recebido == "finalizar":
         contexto = "finalizar"
@@ -173,7 +172,7 @@ def buffet(recebido, n):
     qtd_convidados = int(carrinho["convidados"])
 
     if recebido:
-    
+
         recebido = recebido.replace(', ', ',')
 
         if any(item in ("arroz e guarnição", "guarnição", "arroz") for item in recebido.split(",")):
@@ -182,10 +181,12 @@ def buffet(recebido, n):
             carrinho["total"] += preco
 
         if any(item in ("bolo de corte", "bolo") for item in recebido.split(",")):
+
             preco = 10 * qtd_convidados
             carrinho["carrinho"].append({"item": "Bolo de Corte", "preco": preco })
             carrinho["total"] += preco
             
+
         if any(item in ("churrasco", "carne") for item in recebido.split(",")):
             preco = 40 * qtd_convidados
             carrinho["carrinho"].append({"item": "Churrasco", "preco": preco })
@@ -203,7 +204,7 @@ def buffet(recebido, n):
 
         if recebido == "finalizar":
             contexto = "finalizar"
-    
+
         mensagem = "Item adicionado com sucesso! \nDigite VOLTAR para continuar comprando ou" \
                    " FINALIZAR para encerrar a compra"
 
@@ -234,6 +235,7 @@ def local(recebido, n):
 
     return mensagem, contexto, n
 
+
 def finalizar():
     c = produtoService.adicionarCarrinho(carrinho)
     if c:
@@ -245,20 +247,22 @@ def finalizar():
         mensagem = f"{nome},\nDados da sua festa: \nQuantidade de Convidados: {convidados} \nData: {data} \nCidade: {cidade} \n\nProdutos Adquiridos:\n"
         for produto in c["carrinho"]:
             mensagem += f"{produto['item']} - R${produto['preco']}\n"
-        
+
         mensagem += f"\nVALOR TOTAL:{c['total']} \nAgradecemos por realizar sua festa conosco!"
         pix = pixService.gerarPix()
-        
+
         mensagem_pix = {
             'mensagem': mensagem,
             'pix': {
                 'copia_cola': pix['payload'],
                 'codigo_QR': pix['qr_code_image']
+
             }
         }
 
         return mensagem_pix
 
+        return mensagem_pix
+
     else:
         return 'Não foi possível finalizar a compra.'
-
