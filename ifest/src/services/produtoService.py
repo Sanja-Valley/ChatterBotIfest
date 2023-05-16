@@ -43,16 +43,17 @@ def adicionarCarrinho(carrinho):
         return jsonify({'message': 'Não foi possível adicionar o carrinho.'}), 400
 
 
-def recomendacao():
-    #Grupo Logado
+def recomendacao(usuario: str):
+    # Grupo Logado
 
-    query = "select * from produto_review where id_user = 383"
+    query = f"select * from produto_review pr join usuario_novo un on un.id = pr.id_user where un.email = '{usuario}'"
     df = pd.read_sql(query, get_postgre())
 
-    #df_user = df[df['id_user'] == '383']
+    # df_user = df[df['id_user'] == '383']
     df_user_dpto = df.groupby('class_name').sum()
     df_user_dpto = df_user_dpto.sort_values(by='id_user', ascending=False)
-    query = f"select distinct pd.nome_decoracao from ifest.ifest.produto_decoracao pd join public.produto_review pr on pd.id = pr.clothing_id where class_name = '{str(df_user_dpto.index[0])}' limit 5"
+    query = "select distinct pd.nome_decoracao from ifest.ifest.produto_decoracao pd join public.produto_review pr " \
+            f"on pd.id = pr.clothing_id where class_name = '{str(df_user_dpto.index[0])}' limit 5"
     df = pd.read_sql(query, get_postgre())
 
     # obter valores da coluna "nome_decoracao" como uma lista
@@ -62,3 +63,14 @@ def recomendacao():
     decoracoes_str = ",\n".join(decoracoes)
 
     return decoracoes_str
+
+
+def finalizar_carrinho(item: str):
+    conn = get_postgre()
+    cursor = conn.cursor()
+    query = f"select pd.nome_decoracao from ifest.ifest.produto_decoracao pd where pd.nome_decoracao ILIKE '{str(item)}'"
+    cursor.execute(query)
+    result = cursor.fetchone()
+    cursor.close()
+
+    return result
