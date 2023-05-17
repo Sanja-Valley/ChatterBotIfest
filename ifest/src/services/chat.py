@@ -132,36 +132,10 @@ def decoracao(recebido, n):
         contexto = "finalizar"
         return mensagem, contexto, n
 
-    #if any(item in ("arco de balões", "arco", "1") for item in recebido.split(",")):
     mensagem = "Item adicionado com sucesso! \nDigite VOLTAR para continuar comprando ou" \
                    " FINALIZAR para encerrar a compra"
     carrinho["carrinho"].append({"item": str(produtoService.finalizar_carrinho(str(recebido))), "preco": 180.00})
     carrinho["total"] += 180.00
-
-    # if any(item in ("bolo fake", "bolo", "2") for item in recebido.split(",")):
-    #     mensagem = "Item adicionado com sucesso! \nDigite VOLTAR para continuar comprando ou" \
-    #                " FINALIZAR para encerrar a compra"
-    #     carrinho["carrinho"].append({"item": "Bolo Fake", "preco": 50.00})
-    #     carrinho["total"] += 50.00
-    #
-    # if any(item in ("kit de móveis provençais", "kit", "provençal", "móvel", "movel", "moveis", "móveis", "3")
-    #        for item in recebido.split(",")):
-    #     mensagem = "Item adicionado com sucesso! \nDigite VOLTAR para continuar comprando ou" \
-    #                " FINALIZAR para encerrar a compra"
-    #     carrinho["carrinho"].append({"item": "Kit de Móveis Provençais", "preco": 180.00})
-    #     carrinho["total"] += 180.00
-    #
-    # if any(item in ("painel de tecido", "tecido", "4") for item in recebido.split(",")):
-    #     mensagem = "Item adicionado com sucesso! \nDigite VOLTAR para continuar comprando ou" \
-    #                " FINALIZAR para encerrar a compra"
-    #     carrinho["carrinho"].append({"item": "Painel de Tecido", "preco": 100.00})
-    #     carrinho["total"] += 100.00
-    #
-    # if any(item in ("painel de balões", "balões", "5") for item in recebido.split(",")):
-    #     mensagem = "Item adicionado com sucesso! \nDigite VOLTAR para continuar comprando ou" \
-    #                " FINALIZAR para encerrar a compra"
-    #     carrinho["carrinho"].append({"item": "Painel de Balões", "preco": 130.00})
-    #     carrinho["total"] += 100.00
 
     return mensagem, contexto, n
 
