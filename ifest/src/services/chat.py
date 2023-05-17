@@ -1,20 +1,18 @@
 from services import produtoService, pixService, usuarioService
 from datetime import datetime, date
 
-
 carrinho = {
-  "email": "",
-  "nome": "",
-  "cidade": "",
-  "convidados": 0,
-  "data": "",
-  "carrinho": [],
-  "total": 0
+    "email": "",
+    "nome": "",
+    "cidade": "",
+    "convidados": 0,
+    "data": "",
+    "carrinho": [],
+    "total": 0
 }
 
 
 def respostas(recebido, contexto, n) -> tuple:
-
     recebido = recebido.lower()
 
     contextos = {
@@ -36,7 +34,6 @@ def respostas(recebido, contexto, n) -> tuple:
     if not mensagem:
         mensagem = "Desculpe, não entendi."
 
-
     return mensagem, contexto, n
 
 
@@ -45,20 +42,20 @@ def geral(recebido, n):
     contexto = "geral"
 
     mensagem = "Você está no iFest! Qual o seu e-mail?"
-    
-    if(n == 1):
+
+    if (n == 1):
         carrinho["email"] = recebido
 
         usuario = usuarioService.buscarUsuario(recebido)
 
-        if usuario == 0 :
+        if usuario == 0:
             mensagem = "Usuário não encontrado. Insira um e-mail válido."
             n = 0
         else:
             carrinho["nome"] = usuario
             mensagem = f"{usuario}, a festa é para quantos convidados?"
 
-    if(n == 2):
+    if (n == 2):
         try:
             int(recebido)
             carrinho["convidados"] = recebido
@@ -66,8 +63,8 @@ def geral(recebido, n):
         except:
             mensagem = "Por favor, insira um número válido"
             n = 1
-    
-    if(n == 3):
+
+    if (n == 3):
         try:
             data = datetime.strptime(recebido, '%d/%m/%Y')
             if data.date() <= date.today():
@@ -95,12 +92,7 @@ def menu(recebido, n):
     contexto = "menu"
 
     if any(item in ("decoração", "decoracao") for item in recebido.split(",")):
-        ola = produtoService.recomendacao(str(carrinho['email']))
-
-        # mensagem = "Qual você deseja contratar: \n1.Arco de balões(R$180,00)\n2.Bolo fake(R$50,00)" \
-        #            "\n3.Kit de móveis provençais(R$180,00)\n4.Painel de balões(R$130,00)" \
-        #            "\n5.Painel de tecido(R$100,00)\nVoltar"
-        mensagem = ola + "\nVoltar"
+        mensagem = produtoService.recomendacao(str(carrinho['email'])) + "\nVoltar"
         contexto = "decoracao"
 
     if any(item in ("buffet", "comida") for item in recebido.split(",")):
@@ -133,7 +125,7 @@ def decoracao(recebido, n):
         return mensagem, contexto, n
 
     mensagem = "Item adicionado com sucesso! \nDigite VOLTAR para continuar comprando ou" \
-                   " FINALIZAR para encerrar a compra"
+               " FINALIZAR para encerrar a compra"
     carrinho["carrinho"].append({"item": str(produtoService.finalizar_carrinho(str(recebido))), "preco": 180.00})
     carrinho["total"] += 180.00
 
@@ -151,29 +143,27 @@ def buffet(recebido, n):
 
         if any(item in ("arroz e guarnição", "guarnição", "arroz") for item in recebido.split(",")):
             preco = 8 * qtd_convidados
-            carrinho["carrinho"].append({"item": "Arroz e Guranição", "preco": preco })
+            carrinho["carrinho"].append({"item": "Arroz e Guranição", "preco": preco})
             carrinho["total"] += preco
 
         if any(item in ("bolo de corte", "bolo") for item in recebido.split(",")):
-
             preco = 10 * qtd_convidados
-            carrinho["carrinho"].append({"item": "Bolo de Corte", "preco": preco })
+            carrinho["carrinho"].append({"item": "Bolo de Corte", "preco": preco})
             carrinho["total"] += preco
-            
 
         if any(item in ("churrasco", "carne") for item in recebido.split(",")):
             preco = 40 * qtd_convidados
-            carrinho["carrinho"].append({"item": "Churrasco", "preco": preco })
+            carrinho["carrinho"].append({"item": "Churrasco", "preco": preco})
             carrinho["total"] += preco
 
         if any(item in ("massas", "massa") for item in recebido.split(",")):
             preco = 80 * qtd_convidados
-            carrinho["carrinho"].append({"item": "Massas", "preco": preco })
+            carrinho["carrinho"].append({"item": "Massas", "preco": preco})
             carrinho["total"] += preco
 
         if any(item in ("bebidas", "bebida") for item in recebido.split(",")):
             preco = 15 * qtd_convidados
-            carrinho["carrinho"].append({"item": "Bebidas", "preco": preco })
+            carrinho["carrinho"].append({"item": "Bebidas", "preco": preco})
             carrinho["total"] += preco
 
         if recebido == "finalizar":
