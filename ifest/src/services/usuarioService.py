@@ -1,21 +1,15 @@
-import psycopg2
-
+#import psycopg2
+from config import get_postgre
 def buscarUsuario(email):
     
     #Conectar ao banco de dados
-    conn = psycopg2.connect(
-        host = "localhost",
-        database = "ifest",
-        user = "admin",
-        password = "ifest",
-        options = "-c search_path=ifest"
-        )
+    conn = get_postgre()
 
     #Criar um cursos
     cur = conn.cursor()
 
     #Executar um select
-    cur.execute(f"SELECT * FROM usuario WHERE ds_email = '{email}' LIMIT 1")
+    cur.execute(f"SELECT * FROM usuario_novo WHERE email = '{email}' LIMIT 1")
 
     #Obter os resultados
     row = cur.fetchall()

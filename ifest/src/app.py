@@ -7,11 +7,11 @@ CORS(app)
 # Registering the blueprint
 app.register_blueprint(blueprint, url_prefix='/chat')
 
+
 @app.route('/')
 def main():
     return 'Olá! Bem-vindo ao iFest. Qual o seu nome?'
 
+if __name__ == "__main__":
+    app.run(debug=True)
 
-if __name__ == '__main__':
-    app.run(port=5000)
-app.run()
