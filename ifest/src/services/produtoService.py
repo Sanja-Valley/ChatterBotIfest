@@ -46,13 +46,13 @@ def adicionarCarrinho(carrinho):
 def recomendacao(usuario: str):
     # Grupo Logado
 
-    query = f"select * from produto_review pr join usuario_novo un on un.id = pr.id_user where un.email = '{usuario}'"
+    query = f"select * from ifest.ifest.produto_review pr join ifest.ifest.usuario_novo un on un.id = pr.id_user where un.email = '{usuario}'"
     df = pd.read_sql(query, get_postgre())
 
     # df_user = df[df['id_user'] == '383']
     df_user_dpto = df.groupby('class_name').sum()
     df_user_dpto = df_user_dpto.sort_values(by='id_user', ascending=False)
-    query = "select distinct pd.nome_decoracao from ifest.ifest.produto_decoracao pd join public.produto_review pr " \
+    query = "select distinct pd.nome_decoracao from ifest.ifest.produto_decoracao pd join ifest.ifest.produto_review pr " \
             f"on pd.id = pr.clothing_id where class_name = '{str(df_user_dpto.index[0])}' limit 5"
     df = pd.read_sql(query, get_postgre())
 
