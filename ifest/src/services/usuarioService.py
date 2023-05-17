@@ -21,6 +21,6 @@ def buscarUsuario(email):
     if not row:
         return 0
     else:
-        return row[0][1]
+        return row[0][1].split("@")[0]
     
 
