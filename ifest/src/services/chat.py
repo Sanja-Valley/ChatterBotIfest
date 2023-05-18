@@ -232,7 +232,7 @@ def finalizar():
         return 'Não foi possível finalizar a compra.'
 
 
-def termo_lgpd(email):
+def termo_lgpd_chat(email: str):
 
     usuario = usuarioService.buscarUsuario(email)
 
@@ -240,6 +240,5 @@ def termo_lgpd(email):
         return False
     else:
         carrinho["nome"] = usuario
-
-        return True
+        return usuarioService.termo_lgpd(email=email)
 

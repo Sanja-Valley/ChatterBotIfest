@@ -1,5 +1,5 @@
 from flask import Blueprint, request, abort
-from services.chat import respostas, finalizar, termo_lgpd
+from services.chat import respostas, finalizar, termo_lgpd_chat
 from controllers.chatController import testeChat
 from controllers.produtoController import atualizarProdutosCarrinho, buscarCarrinho
 from services.logService import inserirLog
@@ -37,7 +37,7 @@ def termo_lgpd():
     if email is None:
         abort(400, 'Email obrigatorio')
 
-    return termo_lgpd(email)
+    return termo_lgpd_chat(email=email)
 
 # ProdutoController
 blueprint.route('/update', methods=['POST'])(atualizarProdutosCarrinho)
