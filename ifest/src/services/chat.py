@@ -12,7 +12,7 @@ carrinho = {
 }
 
 
-def respostas(recebido, contexto, n) -> tuple:
+def respostas(recebido, contexto, n, email) -> tuple:
     recebido = recebido.lower()
 
     contextos = {
@@ -230,3 +230,16 @@ def finalizar():
 
     else:
         return 'Não foi possível finalizar a compra.'
+
+
+def termo_lgpd(email):
+
+    usuario = usuarioService.buscarUsuario(email)
+
+    if usuario == 0:
+        return False
+    else:
+        carrinho["nome"] = usuario
+
+        return True
+

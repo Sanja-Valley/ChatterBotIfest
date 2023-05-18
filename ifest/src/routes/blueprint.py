@@ -1,10 +1,9 @@
-from flask import Blueprint, request
-from services.chat import respostas, finalizar
+from flask import Blueprint, request, abort
+from services.chat import respostas, finalizar, termo_lgpd
 from controllers.chatController import testeChat
 from controllers.produtoController import atualizarProdutosCarrinho, buscarCarrinho
 from services.logService import inserirLog
 from datetime import datetime
-from pymongo import MongoClient
 from config import get_database
 
 
@@ -13,6 +12,7 @@ log = {}
 
 @blueprint.route('/', methods=['POST'])
 def receber():
+    email = request.args.get("email")
     mensagem = request.json['mensagem']
     contexto = request.json['contexto']
 
@@ -24,13 +24,20 @@ def receber():
         resposta = finalizar()
         contexto = "finalizar"
     else:
-        resposta, contexto, n = respostas(mensagem, contexto, n)
+        resposta, contexto, n = respostas(mensagem, contexto, n, email)
 
     inserirLog({'bot': resposta, 'date': str(datetime.now())})
     return {'resposta': resposta, 'contexto': contexto, "n": n}
 
 
-blueprint.route('/teste', methods=['GET'])(testeChat)
+@blueprint.route('/lgpd', methods=['GET'])
+def termo_lgpd():
+    email = request.args.get("email")
+
+    if email is None:
+        abort(400, 'Email obrigatorio')
+
+    return termo_lgpd(email)
 
 # ProdutoController
 blueprint.route('/update', methods=['POST'])(atualizarProdutosCarrinho)
