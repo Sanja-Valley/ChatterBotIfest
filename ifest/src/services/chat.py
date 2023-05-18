@@ -38,7 +38,7 @@ def respostas(recebido, contexto, n, email) -> tuple:
 
 
 def geral(recebido, n):
-    mensagem = None
+
     contexto = "geral"
 
     mensagem = "Você está no iFest! Qual o seu e-mail?"

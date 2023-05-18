@@ -30,6 +30,7 @@ def receber():
     return {'resposta': resposta, 'contexto': contexto, "n": n}
 
 
+
 @blueprint.route('/lgpd', methods=['GET'])
 def termo_lgpd():
     email = request.args.get("email")
