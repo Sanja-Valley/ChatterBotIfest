@@ -9,7 +9,7 @@ def buscarUsuario(email):
     cur = conn.cursor()
 
     # Executar um select
-    cur.execute(f"SELECT * FROM usuario_novo WHERE email = '{email}' LIMIT 1")
+    cur.execute(f"SELECT * FROM ifest.ifest.usuario_novo WHERE email = '{email}' LIMIT 1")
 
     # Obter os resultados
     row = cur.fetchall()
