@@ -35,6 +35,8 @@ def atualizarCarrinho(carrinho, id):
 
 
 def adicionarCarrinho(carrinho):
+    if "_id" in carrinho:
+        carrinho.pop("_id")
     result = carrinhodb.insert_one(carrinho)
     if result.inserted_id:
         carrinho["_id"] = json.loads(dumps(result.inserted_id))
