@@ -62,11 +62,6 @@ Criado pela equipe _Sanja Valley_, este projeto visa desenvolver um Chatbot de v
 
 <hr/>
 
-# :globe_with_meridians: Modelagem Banco de Dados Relacional
-![modelo_fisico_bd](https://user-images.githubusercontent.com/49652498/233511898-286293e5-6235-4068-81dd-8f2e48615608.jpeg)<br/>
-
-<hr/>
-
 # :open_file_folder: Entregas
 
 <hr/>
@@ -117,3 +112,22 @@ Criado pela equipe _Sanja Valley_, este projeto visa desenvolver um Chatbot de v
 #### :package: Banco de Dados
 - Salvar Logs de Conversa MongoDB
 #### :bulb: <a href="https://github.com/Sanja-Valley/ChatterBotIfest/blob/main/Apresenta%C3%A7%C3%B5es/Sprint-3.pdf">Apresentação</a>
+
+<hr/>
+
+## Sprint 4
+#### :gear:	Backend
+- Login
+- Melhoria de Recomendações
+- Notificação de Termos LGPD
+- Notificação de Alertas de Dados LGPD
+- Exibição de Imagens
+- Correção de Bugs
+#### :iphone:	Frontend
+- Login
+- Aceitação de Termos LGPD
+- Exibição de Imagens
+- Correção de Bugs
+#### :package: Banco de Dados
+- Salvar Aceitação de Termo LGPD
+#### :bulb: <a href="https://github.com/Sanja-Valley/ChatterBotIfest/blob/main/Apresenta%C3%A7%C3%B5es/Sprint-4.pdf">Apresentação</a>
