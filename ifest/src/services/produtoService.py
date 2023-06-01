@@ -60,7 +60,7 @@ def recomendacao(usuario: str):
     decoracoes = df['nome_decoracao'].to_list()
 
     # unir os valores da lista em uma única string, separando com vírgula e quebra de linha
-    decoracoes_str = ",\n".join(decoracoes)
+    decoracoes_str = ":https://static.itdg.com.br/images/1200-630/59e079217cc8af8291a8cb910d1d449f/318825-original.jpg ,\n".join(decoracoes)
 
     return decoracoes_str
 
