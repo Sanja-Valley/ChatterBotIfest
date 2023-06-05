@@ -92,7 +92,7 @@ def menu(recebido, n):
     contexto = "menu"
 
     if any(item in ("decoração", "decoracao") for item in recebido.split(",")):
-        mensagem = produtoService.recomendacao(str(carrinho['email'])) + "\nVoltar"
+        mensagem = produtoService.recomendacao(str(carrinho['email']))
         contexto = "decoracao"
 
     if any(item in ("buffet", "comida") for item in recebido.split(",")):
