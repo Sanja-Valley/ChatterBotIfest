@@ -225,9 +225,7 @@ def finalizar():
         }
 
         return mensagem_pix
-
-        return mensagem_pix
-
+    
     else:
         return 'Não foi possível finalizar a compra.'
 
